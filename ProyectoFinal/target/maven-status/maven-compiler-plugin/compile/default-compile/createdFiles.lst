@@ -1,0 +1,12 @@
+GUI\CompraBoletosGUI$1.class
+Usuarios\Gerente.class
+GUI\PrincipalGUI$1.class
+Programa\Main.class
+GUI\PrincipalGUI.class
+Programa\Principal.class
+Usuarios\Pasajero.class
+Usuarios\Administrador.class
+GUI\CompraBoletosGUI.class
+Usuarios\OperadorVuelo.class
+Controladores\ControladorCompraBoletos.class
+Usuarios\Usuario.class
