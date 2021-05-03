@@ -14,15 +14,16 @@ import javax.swing.JTextField;
  */
 public class ControladorCompraBoletos {
 
-    public void verificarCBoletos(JTextField text){
+    public void verificarCBoletos(JTextField text) {
         try {
             if (Integer.parseInt(text.getText()) < 1) {
                 JOptionPane.showMessageDialog(null, "CANTIDAD INVALIDA, VUELVA A INTENTAR");
             }
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "CARACTER INVALIDO, SOLO SE ACEPTAN NUMERO, VUELVA A INTENTARLO");
+        } finally {
+            text.setText("");
         }
-
     }
 
 }
