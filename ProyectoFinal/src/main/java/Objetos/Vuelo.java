@@ -7,6 +7,7 @@ package Objetos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class Vuelo implements Serializable {
 
     private String codigoVuelo, codigoAvión, nombreAereopuertoOrigen, nombreAereopuertoDestino;
+    private ArrayList<Pasaporte> pasaportesVuelo;
     private double precioBoleto;
     private LocalDate fechaSalida;
 
@@ -25,6 +27,7 @@ public class Vuelo implements Serializable {
         this.nombreAereopuertoDestino = nombreAereopuertoDestino;
         this.precioBoleto = precioBoleto;
         this.fechaSalida = fechaSalida;
+        pasaportesVuelo = new ArrayList<>();
     }
 
     public String getCodigoVuelo() {
@@ -51,6 +54,8 @@ public class Vuelo implements Serializable {
         return fechaSalida;
     }
 
-    
-    
+    public ArrayList<Pasaporte> getPasaportesVuelo() {
+        return pasaportesVuelo;
+    }
+
 }

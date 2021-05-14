@@ -6,6 +6,9 @@
 package GUI;
 
 import Programa.Principal;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -60,6 +63,11 @@ public class PrincipalGUI extends javax.swing.JFrame {
         );
 
         ingresoPersonal.setText("Ingreso Personal");
+        ingresoPersonal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ingresoPersonalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,6 +99,10 @@ public class PrincipalGUI extends javax.swing.JFrame {
     private void comprarBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarBoletoActionPerformed
         principal.comprarBoletos();
     }//GEN-LAST:event_comprarBoletoActionPerformed
+
+    private void ingresoPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoPersonalActionPerformed
+        principal.ingresoPersonal();
+    }//GEN-LAST:event_ingresoPersonalActionPerformed
 
     /**
      * @param args the command line arguments

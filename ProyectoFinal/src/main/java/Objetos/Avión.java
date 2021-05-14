@@ -49,4 +49,10 @@ public class Avión implements Serializable {
         return consumoMilla;
     }
 
+    public void setNombreAereopuertoActual(String nombreAereopuertoActual) {
+        this.nombreAereopuertoActual = nombreAereopuertoActual;
+    }
+    
+    
+
 }
