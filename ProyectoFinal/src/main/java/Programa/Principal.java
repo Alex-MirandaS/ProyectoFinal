@@ -2,14 +2,18 @@ package Programa;
 
 import Archivos.EscritorArchivosBinarios;
 import Archivos.LectorArchivosBinarios;
+import Controladores.ControladorBuscarDatos;
 import Controladores.ControladorCompraBoletos;
 import Controladores.ControladorLogin;
+import Controladores.ControladorOperadorVuelo;
+import Controladores.ControladorVentanaPersonal;
 import GUI.CompraBoletosGUI;
 import GUI.Login;
 import GUI.PrincipalGUI;
 import GUI.VuelosGUI;
 import GUI.LlenadoPasaporte;
 import GUI.PedirTarjeta;
+import GUI.ventanaPersonal;
 import Objetos.Aereopuerto;
 import Objetos.Avión;
 import Objetos.Pasaporte;
@@ -28,12 +32,15 @@ import java.time.LocalDate;
 public class Principal {
 //mientras
 
-    EscritorArchivosBinarios<Vuelo> escri;
-    EscritorArchivosBinarios<Pasaporte> escriA;
+    EscritorArchivosBinarios<OperadorVuelo> escri;
+    EscritorArchivosBinarios<Vuelo> escriA;
     //Objetos
     //Controladores
     private ControladorCompraBoletos controlCBoletos;
     private ControladorLogin controlLogin;
+    private ControladorBuscarDatos buscarDatos;
+    private ControladorOperadorVuelo controlOperadorVuelo;
+    private ControladorVentanaPersonal controlVentanaPersonal;
     //Lectores de Archivos
     private LectorArchivosBinarios<Avión> lectorAviones;
     private LectorArchivosBinarios<Pasaporte> lecturaPasaportes;
@@ -50,6 +57,7 @@ public class Principal {
     private VuelosGUI tablaVuelos;
     private LlenadoPasaporte llenado;
     private PedirTarjeta pedirTarjeta;
+    private ventanaPersonal ventanaPersonal;
 
     public Principal() throws IOException {
         lectorAviones = new LectorArchivosBinarios<>("Aviones");
@@ -60,11 +68,16 @@ public class Principal {
         lecturaAereopuertos = new LectorArchivosBinarios<>("Aereopuertos");
         lecturaTarjetas = new LectorArchivosBinarios<>("Tarjetas");
 
+        buscarDatos = new ControladorBuscarDatos(this);
+
+        //GUI
+        controlVentanaPersonal = new ControladorVentanaPersonal(this);
+        ventanaPersonal = new ventanaPersonal(this);
         //mientras 
-        escri = new EscritorArchivosBinarios("Vuelos");
-        escriA = new EscritorArchivosBinarios("Pasaportes");
-        escri.guardarObjeto(new Vuelo("sdfa", "fds", "Aereopuerto1", "Aereopuerto777", 60, LocalDate.MIN), "vuelo2");
-        escriA.guardarObjeto(new Pasaporte(32535, "", LocalDate.MIN, "Puerto rico", "", "", "", "", LocalDate.MIN, LocalDate.MIN, "", 20), "Pasaporte1");
+        escri = new EscritorArchivosBinarios("Personal");
+        escriA = new EscritorArchivosBinarios("Vuelos");
+        escri.guardarObjeto(new OperadorVuelo("Pedro", "123"), "Operador1");
+        escriA.guardarObjeto(new Vuelo("256", "165", "Aereopuerto1", "Aereopuerto777", 50, LocalDate.MIN), "vuelo1");
     }
 
     public void iniciar() {
@@ -92,7 +105,25 @@ public class Principal {
         login.setVisible(true);
     }
 
-    public void concederAcceso(Usuario user) {
+    public void concederAcceso(Usuario user, int opcion) {
+
+        if (opcion == 1) {//admin
+            controlOperadorVuelo = new ControladorOperadorVuelo((OperadorVuelo) user);
+        }
+        if (opcion == 2) {
+            controlOperadorVuelo = new ControladorOperadorVuelo((OperadorVuelo) user);
+        } else {
+            controlOperadorVuelo = new ControladorOperadorVuelo((OperadorVuelo) user);
+        }
+
+        ventanaPersonal.setVisible(true);
+    }
+
+    public void accesoPasajero(Pasajero user) {
+
+    }
+
+    public void llenarDatosPersonal() {
 
     }
 
@@ -132,6 +163,18 @@ public class Principal {
         return lecturaAereopuertos;
     }
 
+    public ControladorBuscarDatos getBuscarDatos() {
+        return buscarDatos;
+    }
+
+    public ControladorVentanaPersonal getControlVentanaPersonal() {
+        return controlVentanaPersonal;
+    }
+
+    public ControladorOperadorVuelo getControlOperadorVuelo() {
+        return controlOperadorVuelo;
+    }
+
     public VuelosGUI getTablaVuelos() {
         return tablaVuelos;
     }
@@ -142,6 +185,10 @@ public class Principal {
 
     public PedirTarjeta getPedirTarjeta() {
         return pedirTarjeta;
+    }
+
+    public ventanaPersonal getVentanaPersonal() {
+        return ventanaPersonal;
     }
 
     public CompraBoletosGUI getVentanaCompraBoletos() {

@@ -19,7 +19,7 @@ public class PedirTarjeta extends javax.swing.JFrame {
     public PedirTarjeta(Principal principal) {
         initComponents();
         this.principal = principal;
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
         this.saldoTarjeta.setText("");
         this.precioTotal.setText("");
     }

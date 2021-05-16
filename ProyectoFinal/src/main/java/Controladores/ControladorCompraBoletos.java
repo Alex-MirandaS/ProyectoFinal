@@ -5,10 +5,8 @@
  */
 package Controladores;
 
-import GUI.VuelosGUI;
 import GUI.PedirPasaporte;
 import Objetos.Pasaporte;
-import Objetos.Tarjeta;
 import Objetos.Vuelo;
 import Programa.Principal;
 import java.awt.Component;
@@ -130,8 +128,8 @@ public class ControladorCompraBoletos {
 
             for (int i = 0; i < principal.getLecturaVuelos().leerArchivos().size(); i++) {
                 temp = principal.getLecturaVuelos().leerArchivos().get(i);
-                modelo.addRow(new Object[]{i + 1, buscarCiudades(temp.getNombreAereopuertoOrigen()),
-                    buscarCiudades(temp.getNombreAereopuertoDestino()),
+                modelo.addRow(new Object[]{i + 1, principal.getBuscarDatos().buscarCiudades(temp.getNombreAereopuertoOrigen()),
+                    principal.getBuscarDatos().buscarCiudades(temp.getNombreAereopuertoDestino()),
                     temp.getFechaSalida(), temp.getPrecioBoleto(), temp.getPrecioBoleto() * c});
                 principal.getTablaVuelos().getListaElección().addItem("" + (i + 1));
             }
@@ -162,7 +160,7 @@ public class ControladorCompraBoletos {
         Pasaporte temp;
         int contador = 0;
         for (int i = 0; i < components.length; i++) {
-            temp = buscarPasaporte(((PedirPasaporte) components[i]).getCodPasaporte());
+            temp = principal.getBuscarDatos().buscarPasaporte(((PedirPasaporte) components[i]).getCodPasaporte());
             if (temp != null && verificarVuelo(temp, vuelotemp) == true && verificarFecha(temp.getFechaEmisión())) {
                 pasaportesTemp[contador] = temp;
                 contador++;
@@ -177,46 +175,6 @@ public class ControladorCompraBoletos {
         panel.setLayout(new GridLayout(cPasajeros, 1));
         for (int i = 0; i < cPasajeros; i++) {
             panel.add(new PedirPasaporte());
-        }
-    }
-
-    private String buscarCiudades(String nombre) {
-        try {
-            for (int i = 0; i < principal.getLecturaAereopuertos().leerArchivos().size(); i++) {
-                String temp = principal.getLecturaAereopuertos().leerArchivos().get(i).getNombre();
-                if (temp.equalsIgnoreCase(nombre)) {
-                    return principal.getLecturaAereopuertos().leerArchivos().get(i).getCiudad();
-                }
-            }
-        } catch (IOException e) {
-
-        } catch (ClassNotFoundException e) {
-
-        }
-        return null;
-    }
-
-    private Pasaporte buscarPasaporte(JTextField verificarDatos) {
-        Pasaporte temp = null;
-        try {
-            for (int i = 0; i < principal.getLecturaPasaportes().leerArchivos().size(); i++) {
-                temp = principal.getLecturaPasaportes().leerArchivos().get(i);
-                if (Integer.parseInt(verificarDatos.getText()) == temp.getNumPasaporte()) {
-                    return temp;
-                }
-            }
-            JOptionPane.showMessageDialog(null, "El Pasaporte No existe");
-            verificarDatos.setText("");
-            return null;
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "CARACTER INVALIDO, SOLO SE ACEPTAN NUMERO, VUELVA A INTENTARLO");
-            verificarDatos.setText("");
-        } catch (IOException e) {
-
-        } catch (ClassNotFoundException e) {
-
-        } finally {
-            return temp;
         }
     }
 
@@ -247,36 +205,12 @@ public class ControladorCompraBoletos {
 
     public void verificarTarjeta(JTextField codTarjeta, JTextField cvc) {
 
-        if (buscarTarjeta(codTarjeta, cvc) != null) {
+        if (principal.getBuscarDatos().buscarTarjeta(codTarjeta, cvc) != null) {
             guardarDatos();
         }
     }
 
-    private Tarjeta buscarTarjeta(JTextField codTarjeta, JTextField cvc) {
-        Tarjeta temp = null;
-        try {
-            for (int i = 0; i < principal.getLecturaTarjetas().leerArchivos().size(); i++) {
-                temp = principal.getLecturaTarjetas().leerArchivos().get(i);
-                if (Integer.parseInt(codTarjeta.getText()) == temp.getNumTarjeta() && Integer.parseInt(cvc.getText()) == temp.getCodigoCVC()) {
-                    return temp;
-                }
-            }
-            JOptionPane.showMessageDialog(null, "La Tarjeta No existe");
-            codTarjeta.setText("");
-            return null;
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "CARACTER INVALIDO, SOLO SE ACEPTAN NUMEROS, VUELVA A INTENTARLO");
-            codTarjeta.setText("");
-        } catch (IOException e) {
+    private void guardarDatos() {
 
-        } catch (ClassNotFoundException e) {
-
-        } finally {
-            return temp;
-        }
-    }
-    
-    private void guardarDatos(){
-        
     }
 }

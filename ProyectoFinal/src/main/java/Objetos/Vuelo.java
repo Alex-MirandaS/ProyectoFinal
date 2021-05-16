@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Vuelo implements Serializable {
 
-    private String codigoVuelo, codigoAvión, nombreAereopuertoOrigen, nombreAereopuertoDestino;
+    private String codigoVuelo, codigoAvión, nombreAereopuertoOrigen, nombreAereopuertoDestino, estado = "EN ESPERA";
     private ArrayList<Pasaporte> pasaportesVuelo;
     private double precioBoleto;
     private LocalDate fechaSalida;
@@ -56,6 +56,18 @@ public class Vuelo implements Serializable {
 
     public ArrayList<Pasaporte> getPasaportesVuelo() {
         return pasaportesVuelo;
+    }
+
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 }

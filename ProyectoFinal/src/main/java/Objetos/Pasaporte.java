@@ -81,4 +81,8 @@ public class Pasaporte implements Serializable {
         return fechaVencimiento;
     }
 
+    public void setPaisActual(String paisActual) {
+        this.paisActual = paisActual;
+    }
+
 }
